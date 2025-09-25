@@ -75,7 +75,7 @@ else
     exit 1
 fi
 
-# Step 3: Stop sing-box if running and replace binary
+# Step 3: Stop sing-box if running, remove old binary, then download new
 echo "[3/4] Updating sing-box binary..."
 if pgrep -x "sing-box" >/dev/null 2>&1; then
     echo "   ⚠️ sing-box is currently running, stopping it..."
@@ -83,7 +83,13 @@ if pgrep -x "sing-box" >/dev/null 2>&1; then
     sleep 1
 fi
 
-if wget -q -O "$BIN_FILE" "$BIN_URL"; then
+if [ -f "$BIN_FILE" ]; then
+    echo "   🗑️ Removing old sing-box binary to free space..."
+    rm -f "$BIN_FILE"
+fi
+
+echo "   🔽 Downloading new sing-box binary..."
+if wget -O "$BIN_FILE" "$BIN_URL"; then
     chmod +x "$BIN_FILE"
     echo "   ✅ sing-box replaced at $BIN_FILE"
 else
