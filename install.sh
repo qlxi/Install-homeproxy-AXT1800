@@ -75,14 +75,27 @@ else
     exit 1
 fi
 
-# Step 3: Download and replace sing-box binary
+# Step 3: Stop sing-box if running and replace binary
 echo "[3/4] Updating sing-box binary..."
+if pgrep -x "sing-box" >/dev/null 2>&1; then
+    echo "   ⚠️ sing-box is currently running, stopping it..."
+    killall -9 sing-box || true
+    sleep 1
+fi
+
 if wget -q -O "$BIN_FILE" "$BIN_URL"; then
     chmod +x "$BIN_FILE"
     echo "   ✅ sing-box replaced at $BIN_FILE"
 else
     echo "   ❌ Failed to download sing-box binary"
     exit 1
+fi
+
+# Optionally restart sing-box immediately (before reboot)
+if [ -x "$BIN_FILE" ]; then
+    echo "   🔄 Restarting sing-box..."
+    "$BIN_FILE" >/dev/null 2>&1 &
+    echo "   ✅ sing-box started"
 fi
 
 # Step 4: Reboot router
