@@ -1,8 +1,8 @@
 #!/bin/sh
-# ============================================================
-# HomeProxy One-Click Installer for GL-AXT1800 (OpenWrt v4.8.2)
+# ===============================================================
+# One-click installation script for HomeProxy on GL.iNet routers
 # Author: qlxi
-# ============================================================
+# ===============================================================
 
 set -e
 
@@ -13,7 +13,7 @@ BIN_FILE="/usr/bin/sing-box"
 REQUIRED_MB=35
 
 echo "============================================================"
-echo "   🚀 HomeProxy Installer for GL-AXT1800 (OpenWrt v4.8.2)"
+echo "        🚀 HomeProxy Installer for GL.iNet routers"
 echo "============================================================"
 sleep 1
 
